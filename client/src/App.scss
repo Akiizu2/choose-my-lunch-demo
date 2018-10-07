@@ -1,0 +1,60 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  h4 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .voting-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .voting-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-self: stretch;
+    padding: 16px;
+    .detail-item {
+      &.header {
+        font-weight: bold;
+        margin-bottom: 8px;
+        padding: 8px;
+        border: #999 solid 1px;
+        background: #999;
+        color: #eee;
+      }
+      display: flex;
+      flex-direction: row;
+      min-width: 320px;
+      padding: 8px;
+      border-bottom: 1px solid #999;
+      justify-content: space-around;
+    }
+  }
+  input {
+    height: 24px;
+    margin: 8px;
+    border-radius: 5px;
+    border: #999 solid 1px;
+    padding: 8px;
+    font-size: 14px;
+  }
+  button {
+    min-width: 120px;
+    height: 32px;
+    background: #eee;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 8px 0px;
+    text-transform: uppercase;
+  }
+}
