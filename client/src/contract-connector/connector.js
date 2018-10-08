@@ -18,11 +18,14 @@ const getContract = () => {
   return contract
 }
 
-export const getFoodListCount = async () => {
-  const foodCount = await getContract().methods.getFoodListCount().call()
+export const getFoodList = async () => {
+  const contractInstance = getContract()
+  const { methods } = contractInstance
+  const { getFoodListCount, getFoodDetailByIndex } = methods
+  const foodCount = await getFoodListCount().call()
   let foodList = []
   for (let i = 0; i < foodCount; i++) {
-    const foodDetail = await getContract().methods.getFoodDetailByIndex(i).call()
+    const foodDetail = await getFoodDetailByIndex(i).call()
     const { foodName: foodNameByte32, voteCount } = foodDetail
     const foodName = web3.utils.hexToAscii(foodNameByte32)
     foodList = [
@@ -34,4 +37,12 @@ export const getFoodListCount = async () => {
     ]
   }
   return foodList
+}
+
+export const voteFood = async (foodName, point, address) => {
+  const contractInstance = getContract()
+  const { methods } = contractInstance
+  const { voteFoodByName } = methods
+  const foodNameByte32 = web3.utils.asciiToHex(foodName)
+  await voteFoodByName(foodNameByte32, point).send({ from: address })
 }

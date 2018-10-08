@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
 import './App.scss';
-import { getFoodListCount } from './contract-connector/connector'
+import { getFoodList, voteFood } from './contract-connector/connector'
 
 class App extends Component {
 
   state = {
     foodList: [],
   }
-
 
   voterAddressField = React.createRef();
   votingForField = React.createRef();
@@ -19,13 +18,13 @@ class App extends Component {
   }
 
   loadingFoodList = async () => {
-    const foodList = await getFoodListCount()
+    const foodList = await getFoodList()
     this.setState({
       foodList
     })
   }
 
-  onVote = () => {
+  onVote = async () => {
     const address = this.voterAddressField.current.value
     const votingFor = this.votingForField.current.value
     const point = this.pointField.current.value
@@ -34,9 +33,10 @@ class App extends Component {
     this.votingForField.current.value = null
     this.pointField.current.value = null
 
-    console.log('address', address)
-    console.log('votingFor', votingFor)
-    console.log('point', point)
+    if (address && votingFor && point) {
+      await voteFood(votingFor, point, address)
+      this.loadingFoodList()
+    }
   }
 
 
